@@ -7,7 +7,7 @@ A E-Commerce Website Frontend UI
 ## App Link
 
 ```
-https://wowchat.netlify.app/
+https://orebishop.vercel.app/
 ```
 
 ## Developer Information
