@@ -26,19 +26,19 @@ const Navigation = () => {
               dropDown ? "absolute z-50 bg-white" : "hidden"
             } top-16 left-0 w-full px-3 lg:flex lg:static lg:w-auto gap-10 `}
           >
-            <ListItem className=" font-dm font-normal text-[14px] text-white lg:text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
+            <ListItem className=" font-dm font-normal text-[14px] text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
               <Link to="/">Home</Link>
             </ListItem>
-            <ListItem className=" font-dm font-normal text-[14px] text-white lg:text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
+            <ListItem className=" font-dm font-normal text-[14px] text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
               <Link to="/shop">Shop</Link>
             </ListItem>
-            <ListItem className=" font-dm font-normal text-[14px] text-white lg:text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
+            <ListItem className=" font-dm font-normal text-[14px] text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
               <Link to="/about">About</Link>
             </ListItem>
-            <ListItem className=" font-dm font-normal text-[14px] text-white lg:text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
+            <ListItem className=" font-dm font-normal text-[14px] text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
               <Link to="/contact">Contacts</Link>
             </ListItem>
-            <ListItem className=" font-dm font-normal text-[14px] text-white lg:text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
+            <ListItem className=" font-dm font-normal text-[14px] text-secondary py-3 block lg:p-0 lg:hover:text-primary hover:font-bold">
               Journal
             </ListItem>
           </List>
