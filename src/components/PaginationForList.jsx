@@ -56,7 +56,7 @@ const PaginationForList = ({ itemsPerPage, products }) => {
         />
 
         <p className=" font-dm font-normal text-[14px] text-secondary leading-[30px]">
-          Products from {itemOffset} to {parseInt(endOffset)} of {items.length}
+          Products from {itemOffset} to {endOffset} of {items.length}
         </p>
       </Flex>
     </>

@@ -80,7 +80,7 @@ const ProductsComponent = () => {
             </label>
 
             <select
-              onChange={(e) => setItemShow(e.target.value)}
+              onChange={(e) => setItemShow(parseInt(e.target.value))}
               id="countries"
               class="w-[139px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
             >
