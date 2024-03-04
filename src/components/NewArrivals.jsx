@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import Container from "./Container";
-import Item from "./Item";
+import ItemCard from "./ItemCard";
 import { productsList } from "../API";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 
@@ -115,7 +115,7 @@ const NewArrivals = () => {
         <div className="slider-container">
           <Slider {...settings}>
             {productsList.map((p, i) => (
-              <Item className={` mx-auto`} item={p} key={i} />
+              <ItemCard className={` mx-auto`} item={p} key={i} />
             ))}
           </Slider>
         </div>

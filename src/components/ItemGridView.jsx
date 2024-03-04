@@ -1,16 +1,8 @@
 import React from "react";
-import Flex from "./Flex";
-import Item from "./Item";
-import { productsList } from "../API";
+import PaginationForGrid from "./PaginationForGrid";
 
-const ItemGridView = () => {
-  return (
-    <Flex className={`flex-wrap justify-between`}>
-      {productsList.map((p) => (
-        <Item className={`mb-[50px] mx-0`} item={p} />
-      ))}
-    </Flex>
-  );
+const ItemGridView = ({ products }) => {
+  return <PaginationForGrid itemsPerPage={12} products={products} />;
 };
 
 export default ItemGridView;
