@@ -27,7 +27,7 @@ const ProductsComponent = () => {
 
   return (
     <div>
-      <Flex className={`items-center justify-between`}>
+      <Flex className={` justify-between flex-col lg:flex-row gap-5 lg:gap-0`}>
         <Flex className={`gap-5`}>
           <div
             className={` cursor-pointer  w-9 h-9 border-[1px] border-solid  ${
@@ -50,7 +50,7 @@ const ProductsComponent = () => {
           </div>
         </Flex>
 
-        <Flex className={`items-center gap-10`}>
+        <Flex className={` gap-5 lg:gap-10 flex-col lg:flex-row`}>
           <div className=" flex items-center gap-[14px]">
             <label
               className=" font-dm font-normal text-[16px] leading-[30px] text-secondary"
@@ -80,7 +80,11 @@ const ProductsComponent = () => {
             </label>
 
             <select
-              onChange={(e) => setItemShow(parseInt(e.target.value))}
+              onChange={(e) =>
+                setItemShow(parseInt(e.target.value))
+              } /** এইখানে ছিল আমাদের সমস্যাটা। আমরা জানি Number আর String এর মধ্যে Math হয় না। কিন্তু 
+              Select tag থেকে যে Value টা State এ যাচ্ছে তা আসলে String হয়ে যাচ্ছিল আর এই কারনেই হয়ত Number এর আগে Zero আসছিল। parseInt method এর মাধ্যমে
+              Solve করা গেছে।  */
               id="countries"
               class="w-[139px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
             >

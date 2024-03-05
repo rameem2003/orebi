@@ -4,7 +4,7 @@ import { FaAngleRight } from "react-icons/fa6";
 
 const Breadcrums = ({ title }) => {
   return (
-    <div>
+    <div className="my-16 lg:mt-[124px] lg:mb-[140px]">
       <h2 className=" font-dm font-bold text-[50px] text-primary mb-3">
         {title}
       </h2>

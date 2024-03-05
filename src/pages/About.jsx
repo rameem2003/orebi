@@ -8,23 +8,23 @@ import Breadcrums from "../components/Breadcrums";
 
 const About = ({ title }) => {
   return (
-    <section className=" mt-[124px]">
+    <section>
       <Container>
         <Breadcrums title={title} />
 
         <Flex
           className={`items-center justify-center flex-col lg:flex-row gap-10 mt-[130px]`}
         >
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <Imege className={`w-full lg:w-auto `} src={about1} />
           </div>
 
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <Imege className={`w-full lg:w-auto `} src={about2} />
           </div>
         </Flex>
 
-        <p className=" font-dm font-normal text-[39px] text-justify lg:text-left leading-[52px] text-primary w-auto lg:w-[1433px] mt-[128px]">
+        <p className=" font-dm font-normal text-xl lg:text-[39px] text-justify lg:text-left leading-[52px] text-primary w-auto lg:w-[1433px] mt-[128px]">
           Orebi is one of the world’s leading ecommerce brands and is
           internationally recognized for celebrating the essence of classic
           Worldwide cool looking style.

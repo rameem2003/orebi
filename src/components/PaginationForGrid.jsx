@@ -8,7 +8,9 @@ const PaginationForGrid = ({ itemsPerPage, products }) => {
 
   function Items({ currentItems }) {
     return (
-      <Flex className={`flex-wrap justify-between`}>
+      <Flex
+        className={`flex-wrap justify-center lg:justify-between gap-10 lg:gap-0`}
+      >
         {currentItems &&
           currentItems.map((item) => (
             <ItemCard item={item} className={`mb-[50px]`} />
@@ -42,7 +44,7 @@ const PaginationForGrid = ({ itemsPerPage, products }) => {
   return (
     <>
       <Items currentItems={currentItems} />
-      <Flex className="mt-[50px] items-center justify-between mb-[140px]">
+      <Flex className=" my-16 lg:mt-[50px] lg:mb-[140px] flex-col lg:flex-row gap-5 lg:gap-0 items-center justify-between">
         <ReactPaginate
           breakLabel="..."
           className=" flex gap-4 ml-[-15px] "

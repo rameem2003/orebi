@@ -6,7 +6,7 @@ import Breadcrums from "../components/Breadcrums";
 
 const Checkout = ({ title }) => {
   return (
-    <section className="mt-16 mb-16 lg:mt-[124px] lg:mb-[140px]">
+    <section>
       <Container>
         <Breadcrums title={title} />
 

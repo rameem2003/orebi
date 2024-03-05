@@ -8,7 +8,7 @@ import Breadcrums from "../components/Breadcrums";
 const Account = ({ title }) => {
   const [toggleState, setToggleState] = useState(1);
   return (
-    <section className="mt-16 mb-16 lg:mt-[124px] lg:mb-[140px]">
+    <section>
       <Container>
         <Breadcrums title={title} />
 

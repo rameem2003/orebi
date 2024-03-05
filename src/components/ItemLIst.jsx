@@ -6,9 +6,9 @@ import { FaHeart } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
 import { FaCartShopping } from "react-icons/fa6";
 
-const ItemLIst = ({ item, className }) => {
+const ItemLIst = ({ item }) => {
   return (
-    <Flex className=" p-4 mb-4 bg-[#f0f0f0] items-center justify-between">
+    <Flex className=" p-4 mb-4 bg-[#f0f0f0] flex-col gap-4 md:flex-row md:gap-0 md:items-center items-start justify-between">
       <Flex className={`items-center gap-5`}>
         <div>
           <Imege src={item.thumbnail} className={`w-32 h-32 object-cover`} />

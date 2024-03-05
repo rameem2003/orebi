@@ -14,12 +14,14 @@ const Shop = ({ title }) => {
   const [showColor, setShowColor] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   return (
-    <section className=" mt-[124px]">
+    <section>
       <Container>
         <Breadcrums title={title} />
 
-        <Flex className={`justify-between gap-10 mt-[130px]`}>
-          <div className="w-3/12">
+        <Flex
+          className={`justify-between flex-col lg:flex-row gap-10 mt-10 lg:mt-[130px]`}
+        >
+          <div className="w-full lg:w-3/12">
             <div>
               <h2 className=" font-dm font-bold text-[20px] text-primary mb-9">
                 Shop by Category
@@ -99,7 +101,7 @@ const Shop = ({ title }) => {
               </List>
             </div>
           </div>
-          <div className="w-9/12">
+          <div className="w-full lg:w-9/12">
             <ProductsComponent />
           </div>
         </Flex>

@@ -4,7 +4,7 @@ import Breadcrums from "../components/Breadcrums";
 
 const Contact = ({ title }) => {
   return (
-    <section className="mt-[124px]">
+    <section>
       <Container>
         <Breadcrums title={title} />
 

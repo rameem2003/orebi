@@ -7,7 +7,7 @@ import { FaCartShopping } from "react-icons/fa6";
 
 const ItemCard = ({ item, className }) => {
   return (
-    <div className={`w-[280px] md:w-[350px] lg:w-[370px] group ${className}`}>
+    <div className={`w-auto md:w-[350px] lg:w-[370px] group ${className}`}>
       <div className=" relative overflow-hidden w-full">
         <Imege
           src={item.thumbnail}
