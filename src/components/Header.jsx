@@ -4,6 +4,7 @@ import Flex from "./Flex";
 import List from "./List";
 import ListItem from "./ListItem";
 import Imege from "./Imege";
+import axios from "axios";
 import placeholder from "../assets/placeholder.png";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
@@ -16,6 +17,8 @@ const Header = () => {
   const [dropDown, setDropDown] = useState(false);
   const [account, setAccount] = useState(false);
   const [cartDrop, setCartDrop] = useState(false);
+  const [search, setSearch] = useState([]);
+  const [filterResult, setFilterResult] = useState([]);
   useEffect(() => {
     document.addEventListener("click", (e) => {
       // if (dropDownRef.current.contains(e.target)) {
@@ -37,10 +40,34 @@ const Header = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const fetchProducts = () => {
+      axios
+        .get("https://dummyjson.com/products")
+        .then((data) => setSearch(data.data.products));
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleSearch = (e) => {
+    if (e.target.value == "") {
+      setFilterResult([]);
+    } else {
+      const searchResult = search.filter((searchItem) =>
+        searchItem.title.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setFilterResult(searchResult);
+    }
+
+    // console.log(searchResult);
+  };
+
   return (
     <header className="py-6 bg-[#F5f5f5]">
       <Container>
         <Flex className={`items-center justify-between gap-3 lg:gap-0`}>
+          {/* catagory start */}
           <div ref={dropDownRef} className=" relative">
             <Flex className={`items-center gap-[10px] cursor-pointer`}>
               <FaBarsProgress />
@@ -88,9 +115,12 @@ const Header = () => {
               </List>
             )}
           </div>
+          {/* catagory end */}
 
+          {/* search start */}
           <div className=" relative w-[600px]">
             <input
+              onChange={handleSearch}
               className=" w-full py-4 pl-5 placeholder:font-dm text-[14px] placeholder:text-[#c4c4c4]"
               type="text"
               name=""
@@ -98,8 +128,41 @@ const Header = () => {
               placeholder="Search Products"
             />
             <FaSearch className=" absolute text-[15px] font-bold top-[50%] translate-y-[-50%] right-4 " />
-          </div>
 
+            {filterResult.length > 0 && (
+              <div className=" w-full h-[300px] overflow-y-scroll bg-white absolute top-14 left-0 z-[1]">
+                {filterResult.map((filterItem) => (
+                  <Flex
+                    className={`p-2 mb-2 bg-white items-center justify-between hover:bg-gray-200`}
+                  >
+                    <Flex className={`items-center gap-4`}>
+                      <Imege
+                        src={filterItem.thumbnail}
+                        alt={""}
+                        className={`w-[80px] h-[80px] object-cover`}
+                      />
+                      <div>
+                        <h2 className=" font-dm font-semibold text-xl">
+                          {filterItem.title}
+                        </h2>
+
+                        <h3 className=" font-dm font-normal text-sm mt-1">
+                          $ {filterItem.price}
+                        </h3>
+                      </div>
+                    </Flex>
+
+                    <button className=" px-4 py-2 bg-primary text-white font-dm font-normal text-sm mr-2">
+                      View
+                    </button>
+                  </Flex>
+                ))}
+              </div>
+            )}
+          </div>
+          {/* search end */}
+
+          {/* account and cart start */}
           <Flex className={`items-center gap-10`}>
             <div ref={accountRef} className=" relative">
               <Flex className={`items-center gap-1 cursor-pointer`}>
@@ -177,6 +240,7 @@ const Header = () => {
               )}
             </div>
           </Flex>
+          {/* account and cart end */}
         </Flex>
       </Container>
     </header>
