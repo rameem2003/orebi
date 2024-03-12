@@ -14,9 +14,11 @@ const Header = () => {
   const dropDownRef = useRef();
   const accountRef = useRef();
   const cartRef = useRef();
+  const searchResultRef = useRef();
   const [dropDown, setDropDown] = useState(false);
   const [account, setAccount] = useState(false);
   const [cartDrop, setCartDrop] = useState(false);
+  const [searchRef, setSearchRef] = useState(false);
   const [search, setSearch] = useState([]);
   const [filterResult, setFilterResult] = useState([]);
   useEffect(() => {
@@ -37,6 +39,10 @@ const Header = () => {
       cartRef.current.contains(e.target)
         ? setCartDrop(true)
         : setCartDrop(false);
+
+      searchResultRef.current.contains(e.target)
+        ? setSearchRef(true)
+        : setSearchRef(false);
     });
   }, []);
 
@@ -118,7 +124,7 @@ const Header = () => {
           {/* catagory end */}
 
           {/* search start */}
-          <div className=" relative w-[600px]">
+          <div ref={searchResultRef} className=" relative w-[600px]">
             <input
               onChange={handleSearch}
               className=" w-full py-4 pl-5 placeholder:font-dm text-[14px] placeholder:text-[#c4c4c4]"
@@ -129,34 +135,40 @@ const Header = () => {
             />
             <FaSearch className=" absolute text-[15px] font-bold top-[50%] translate-y-[-50%] right-4 " />
 
-            {filterResult.length > 0 && (
+            {searchRef && (
               <div className=" w-full h-[300px] overflow-y-scroll bg-white absolute top-14 left-0 z-[1]">
-                {filterResult.map((filterItem) => (
-                  <Flex
-                    className={`p-2 mb-2 bg-white items-center justify-between hover:bg-gray-200`}
-                  >
-                    <Flex className={`items-center gap-4`}>
-                      <Imege
-                        src={filterItem.thumbnail}
-                        alt={""}
-                        className={`w-[80px] h-[80px] object-cover`}
-                      />
-                      <div>
-                        <h2 className=" font-dm font-semibold text-xl">
-                          {filterItem.title}
-                        </h2>
+                {filterResult.length > 0 ? (
+                  filterResult.map((filterItem) => (
+                    <Flex
+                      className={`p-2 mb-2 bg-white items-center justify-between hover:bg-gray-200`}
+                    >
+                      <Flex className={`items-center gap-4`}>
+                        <Imege
+                          src={filterItem.thumbnail}
+                          alt={""}
+                          className={`w-[80px] h-[80px] object-cover`}
+                        />
+                        <div>
+                          <h2 className=" font-dm font-semibold text-xl">
+                            {filterItem.title}
+                          </h2>
 
-                        <h3 className=" font-dm font-normal text-sm mt-1">
-                          $ {filterItem.price}
-                        </h3>
-                      </div>
+                          <h3 className=" font-dm font-normal text-sm mt-1">
+                            $ {filterItem.price}
+                          </h3>
+                        </div>
+                      </Flex>
+
+                      <button className=" px-4 py-2 bg-primary text-white font-dm font-normal text-sm mr-2">
+                        View
+                      </button>
                     </Flex>
-
-                    <button className=" px-4 py-2 bg-primary text-white font-dm font-normal text-sm mr-2">
-                      View
-                    </button>
-                  </Flex>
-                ))}
+                  ))
+                ) : (
+                  <h1 className=" font-dm font-semibold text-xl text-center mt-2">
+                    No Products Found
+                  </h1>
+                )}
               </div>
             )}
           </div>
