@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Flex from "../components/Flex";
 import List from "../components/List";
 import Container from "../components/Container";
@@ -7,12 +8,39 @@ import ShopByCatagory from "../components/ShopByCatagory";
 import ShopByColor from "../components/ShopByColor";
 import ShopByBrand from "../components/ShopByBrand";
 import ShopByPrice from "../components/ShopByPrice";
-import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import ProductsComponent from "../components/ProductsComponent";
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
 const Shop = ({ title }) => {
+  const [products, setProducts] = useState([]);
+  const [categoty, setCetegory] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState([]);
   const [showColor, setShowColor] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
+  useEffect(() => {
+    const fetchProducts = () => {
+      axios.get("https://dummyjson.com/products").then((data) => {
+        setProducts(data.data.products);
+        setCategoryFilter(data.data.products);
+      });
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    setCetegory([...new Set(products.map((item) => item.category))]);
+  }, [products]);
+
+  const showByCategory = (cat) => {
+    const filterCategory = products.filter((item) => item.category == cat);
+    setCategoryFilter(filterCategory);
+  };
+
+  const showAllProducts = () => {
+    setCategoryFilter(products);
+  };
+
   return (
     <section>
       <Container>
@@ -28,9 +56,18 @@ const Shop = ({ title }) => {
               </h2>
 
               <List>
-                <ShopByCatagory categoryShow={true} cat="Catagory 1" />
-                <ShopByCatagory categoryShow={false} cat="Catagory 1" />
-                <ShopByCatagory categoryShow={true} cat="Catagory 1" />
+                <ShopByCatagory
+                  onClick={showAllProducts}
+                  categoryShow={false}
+                  cat={"All"}
+                />
+                {categoty.map((categoryName) => (
+                  <ShopByCatagory
+                    onClick={showByCategory}
+                    categoryShow={false}
+                    cat={categoryName}
+                  />
+                ))}
               </List>
             </div>
 
@@ -102,7 +139,7 @@ const Shop = ({ title }) => {
             </div>
           </div>
           <div className="w-full lg:w-9/12">
-            <ProductsComponent />
+            <ProductsComponent products={categoryFilter} />
           </div>
         </Flex>
       </Container>

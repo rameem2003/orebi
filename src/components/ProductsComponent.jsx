@@ -6,20 +6,9 @@ import PaginationForList from "./PaginationForList";
 import { MdWindow } from "react-icons/md";
 import { IoIosList } from "react-icons/io";
 
-const ProductsComponent = () => {
-  const [products, setProducts] = useState([]);
+const ProductsComponent = ({ products }) => {
   const [itemShow, setItemShow] = useState(6);
   const [view, setView] = useState("grid");
-
-  useEffect(() => {
-    const fetchProducts = () => {
-      axios
-        .get("https://dummyjson.com/products")
-        .then((data) => setProducts(data.data.products));
-    };
-
-    fetchProducts();
-  }, []);
 
   const handleView = (v) => {
     setView(v);

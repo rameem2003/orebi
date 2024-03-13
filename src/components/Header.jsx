@@ -9,8 +9,9 @@ import placeholder from "../assets/placeholder.png";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   const dropDownRef = useRef();
   const accountRef = useRef();
   const cartRef = useRef();
@@ -67,6 +68,10 @@ const Header = () => {
     }
 
     // console.log(searchResult);
+  };
+
+  const goToFilter = () => {
+    navigate("/productfilter", { state: { key: filterResult } });
   };
 
   return (
@@ -133,7 +138,10 @@ const Header = () => {
               id=""
               placeholder="Search Products"
             />
-            <FaSearch className=" absolute text-[15px] font-bold top-[50%] translate-y-[-50%] right-4 " />
+            <FaSearch
+              onClick={goToFilter}
+              className=" absolute text-[15px] font-bold top-[50%] translate-y-[-50%] right-4 cursor-pointer"
+            />
 
             {searchRef && (
               <div className=" w-full h-[300px] overflow-y-scroll bg-white absolute top-14 left-0 z-[1]">

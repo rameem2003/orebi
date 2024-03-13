@@ -4,14 +4,17 @@ import { Link } from "react-router-dom";
 import Flex from "./Flex";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
-const ShopByCatagory = ({ cat, categoryShow }) => {
+const ShopByCatagory = ({ cat, categoryShow, onClick }) => {
   const [catDropDown, setCatDropDown] = useState(false);
   return (
     <ListItem className={`mb-5`}>
       <Flex
         className={`items-center justify-between border-b border-solid pb-5`}
       >
-        <Link className=" font-dm font-normal text-[16px] text-secondary">
+        <Link
+          onClick={() => onClick(cat)}
+          className=" font-dm font-normal text-[16px] text-secondary capitalize"
+        >
           {cat}
         </Link>
         {categoryShow && (
