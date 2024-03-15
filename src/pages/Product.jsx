@@ -1,28 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "../components/Container";
 import Breadcrums from "../components/Breadcrums";
 import Imege from "../components/Imege";
 import Flex from "../components/Flex";
 import { Rate } from "antd";
-import { TiPlus } from "react-icons/ti";
+import { TiPlus, TiMinus } from "react-icons/ti";
 
 const Product = ({ title }) => {
+  const [shipping, setShipping] = useState(true);
+  const [section, setSection] = useState("review");
   return (
     <section>
       <Container>
         <Breadcrums title={title} />
 
         {/* display products start */}
-        <Flex className={`items-center flex-wrap gap-5`}>
-          <Imege className={`w-[780px] h-[780px]`} src={`/item1.png`} />
-          <Imege className={`w-[780px] h-[780px]`} src={`/item1.png`} />
-          <Imege className={`w-[780px] h-[780px]`} src={`/item1.png`} />
-          <Imege className={`w-[780px] h-[780px]`} src={`/item1.png`} />
+        <Flex className={`items-center justify-center flex-wrap gap-5`}>
+          <Imege
+            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
+            src={`/item1.png`}
+          />
+          <Imege
+            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
+            src={`/item1.png`}
+          />
+          <Imege
+            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
+            src={`/item1.png`}
+          />
+          <Imege
+            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
+            src={`/item1.png`}
+          />
         </Flex>
         {/* display products end */}
 
         {/* info start */}
-        <div className="mt-[49px] w-[780px]">
+        <div className="mt-[49px] w-full lg:w-[780px]">
           <h1 className=" font-dm font-bold text-[39px] text-primary">
             Product 1
           </h1>
@@ -139,16 +153,171 @@ const Product = ({ title }) => {
                 SHIPPING & RETURNS
               </h2>
 
-              <TiPlus />
+              {shipping ? (
+                <TiMinus onClick={() => setShipping(!shipping)} />
+              ) : (
+                <TiPlus onClick={() => setShipping(!shipping)} />
+              )}
             </Flex>
 
-            <p className="mt-[19px] font-dm font-normal text-[16px] leading-[30px] text-secondary">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            {shipping && (
+              <p className="mt-[19px] font-dm font-normal text-[16px] leading-[30px] text-secondary">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            )}
           </div>
         </div>
         {/* info end */}
+
+        {/* descryptions & reviews start */}
+        <div className="mt-[123px]">
+          <Flex className={` items-center gap-[62px]`}>
+            <h2
+              onClick={() => setSection("desc")}
+              className={` font-dm  text-[20px]  ${
+                section == "desc"
+                  ? "text-primary font-bold"
+                  : "text-secondary font-normal"
+              } leading-[29px] cursor-pointer`}
+            >
+              Description
+            </h2>
+            <h2
+              onClick={() => setSection("review")}
+              className={` font-dm  text-[20px]  ${
+                section == "review"
+                  ? "text-primary font-bold"
+                  : "text-secondary font-normal"
+              } leading-[29px] cursor-pointer`}
+            >
+              Reviews (1)
+            </h2>
+          </Flex>
+
+          <div className="mt-[42px]">
+            {section == "review" ? (
+              <div>
+                <p className=" pb-4 border-b-[1px] border-solid font-dm font-normal text-[14px] leading-[30px] text-secondary">
+                  1 review for Product
+                </p>
+
+                <div className="pt-6 pb-4 border-b-[1px] border-solid">
+                  <Flex className={`items-center justify-between`}>
+                    <Flex className={`items-center gap-[37px]`}>
+                      <h1 className=" font-dm font-normal text-[16px] leading-[30px] text-primary">
+                        John Ford
+                      </h1>
+                      <Rate disabled defaultValue={5} />
+                    </Flex>
+
+                    <span className=" font-dm font-normal text-[16px] text-secondary">
+                      6 months ago
+                    </span>
+                  </Flex>
+
+                  <p className=" font-dm font-normal text-[16px] leading-[30px] text-secondary mt-[14px]">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Fugiat accusantium ea sit accusamus nesciunt? Minima nisi
+                  repellendus soluta maiores voluptatibus dolorum rerum numquam
+                  temporibus nobis quae dolor aut, quis tempore accusantium iste
+                  nihil beatae omnis veritatis inventore! Dignissimos est
+                  perspiciatis ratione impedit voluptas aliquam sunt, repellat
+                  consequuntur qui minus fugiat nesciunt obcaecati eius nobis
+                  voluptates eveniet deleniti vitae! Iste laudantium libero
+                  dolorem rerum. Iure, fuga natus unde culpa fugiat ex officia
+                  laborum. Animi quod omnis voluptates reprehenderit ratione
+                  quaerat optio dolores laborum rerum dolor dolore, dicta
+                  suscipit ut totam aut, esse maxime, officia quibusdam
+                  excepturi nulla? Expedita saepe suscipit, consectetur
+                  asperiores corporis alias facilis unde placeat, ipsa iure
+                  incidunt error ratione id rem enim et itaque tempora accusamus
+                  recusandae voluptatem.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+        {/* descryptions & reviews end */}
+
+        {/* post review start */}
+
+        <form action="" className="mt-[53px] mb-[341px] w-full lg:w-[780px]">
+          <h1 className="mb-12 font-dm font-bold text-[20px] text-primary">
+            Add a Review
+          </h1>
+
+          <div className="mb-[23px]">
+            <label
+              className=" font-dm font-bold text-[16px] leading-[23px] text-primary"
+              htmlFor=""
+            >
+              Name
+            </label>
+
+            <input
+              className="w-full md:w-[779px] block border-b border-[#f0f0f0] pt-[10px] pb-[16px] placeholder:font-dm placeholder:font-normal placeholder:text-[14px] placeholder:text-secondary"
+              type="text"
+              name=""
+              id=""
+              placeholder="Your name here"
+            />
+          </div>
+          <div className="mb-[23px]">
+            <label
+              className=" font-dm font-bold text-[16px] leading-[23px] text-primary"
+              htmlFor=""
+            >
+              Email
+            </label>
+
+            <input
+              className="w-full md:w-[779px] block border-b border-[#f0f0f0] pt-[10px] pb-[16px] placeholder:font-dm placeholder:font-normal placeholder:text-[14px] placeholder:text-secondary"
+              type="email"
+              name=""
+              id=""
+              placeholder="Your email here"
+            />
+          </div>
+
+          <div className="mb-[23px]">
+            <label
+              className=" font-dm font-bold text-[16px] leading-[23px] text-primary"
+              htmlFor=""
+            >
+              Review
+            </label>
+
+            <input
+              className="w-full md:w-[779px] block border-b border-[#f0f0f0] pt-[10px] pb-[86px] placeholder:font-dm placeholder:font-normal placeholder:text-[14px] placeholder:text-secondary"
+              type="text"
+              name=""
+              id=""
+              placeholder="Your review here"
+            />
+          </div>
+
+          <button
+            className=" font-dm font-bold text-[14px] text-white py-4 px-[88px] bg-primary"
+            type="submit"
+          >
+            Post
+          </button>
+        </form>
+        {/* post review end */}
       </Container>
     </section>
   );
