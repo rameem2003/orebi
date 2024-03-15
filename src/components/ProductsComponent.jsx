@@ -50,7 +50,7 @@ const ProductsComponent = ({ products }) => {
 
             <select
               id="countries"
-              class="w-[239px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
+              className="w-[239px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
             >
               <option selected>Choose a country</option>
               <option value="US">United States</option>
@@ -75,7 +75,7 @@ const ProductsComponent = ({ products }) => {
               Select tag থেকে যে Value টা State এ যাচ্ছে তা আসলে String হয়ে যাচ্ছিল আর এই কারনেই হয়ত Number এর আগে Zero আসছিল। parseInt method এর মাধ্যমে
               Solve করা গেছে।  */
               id="countries"
-              class="w-[139px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
+              className="w-[139px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
             >
               <option value={6} selected>
                 6

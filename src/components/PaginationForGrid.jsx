@@ -12,8 +12,8 @@ const PaginationForGrid = ({ itemsPerPage, products }) => {
         className={`flex-wrap justify-center lg:justify-between gap-10 lg:gap-0`}
       >
         {currentItems &&
-          currentItems.map((item) => (
-            <ItemCard item={item} className={`mb-[50px]`} />
+          currentItems.map((item, i) => (
+            <ItemCard item={item} className={`mb-[50px]`} key={i} />
           ))}
       </Flex>
     );
@@ -27,20 +27,20 @@ const PaginationForGrid = ({ itemsPerPage, products }) => {
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
-  console.log(typeof endOffset);
+  // console.log(typeof endOffset);
   return (
     <>
       <Items currentItems={currentItems} />

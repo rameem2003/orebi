@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Flex from "../components/Flex";
 import List from "../components/List";
@@ -13,10 +13,12 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
 const Shop = ({ title }) => {
   const [products, setProducts] = useState([]);
+  // console.log(products);
   const [categoty, setCetegory] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [showColor, setShowColor] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
+
   useEffect(() => {
     const fetchProducts = () => {
       axios.get("https://dummyjson.com/products").then((data) => {
@@ -61,8 +63,9 @@ const Shop = ({ title }) => {
                   categoryShow={false}
                   cat={"All"}
                 />
-                {categoty.map((categoryName) => (
+                {categoty.map((categoryName, i) => (
                   <ShopByCatagory
+                    key={i}
                     onClick={showByCategory}
                     categoryShow={false}
                     cat={categoryName}
