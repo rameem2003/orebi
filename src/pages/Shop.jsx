@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Flex from "../components/Flex";
 import List from "../components/List";
 import Container from "../components/Container";
@@ -12,35 +12,38 @@ import ProductsComponent from "../components/ProductsComponent";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
 const Shop = ({ title }) => {
-  const [products, setProducts] = useState([]);
-  // console.log(products);
-  const [categoty, setCetegory] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState([]);
-  const [showColor, setShowColor] = useState(true);
-  const [showBrand, setShowBrand] = useState(true);
+  const productsList = useSelector((state) => state.productArray.products); // get all products by initial from redux store
+  const [categoryFilter, setCategoryFilter] = useState([]); // state for filter products by the category name
+  const [categoty, setCetegory] = useState([]); // filter the unique category name and store in the state
+  const [showColor, setShowColor] = useState(true); // show color option
+  const [showBrand, setShowBrand] = useState(true); // show brand option
+
+  // useEffect(() => {
+  //   const fetchProducts = () => {
+  //     axios.get("https://dummyjson.com/products").then((data) => {
+  //       setProducts(data.data.products);
+  //       setCategoryFilter(data.data.products);
+  //     });
+  //   };
+
+  //   fetchProducts();
+  // }, []);
 
   useEffect(() => {
-    const fetchProducts = () => {
-      axios.get("https://dummyjson.com/products").then((data) => {
-        setProducts(data.data.products);
-        setCategoryFilter(data.data.products);
-      });
-    };
-
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    setCetegory([...new Set(products.map((item) => item.category))]);
-  }, [products]);
+    // filter the unique category name and store in the state
+    setCetegory([...new Set(productsList.map((item) => item.category))]);
+    setCategoryFilter(productsList);
+  }, [productsList]);
 
   const showByCategory = (cat) => {
-    const filterCategory = products.filter((item) => item.category == cat);
+    // filter products by the category name
+    const filterCategory = productsList.filter((item) => item.category == cat);
     setCategoryFilter(filterCategory);
   };
 
   const showAllProducts = () => {
-    setCategoryFilter(products);
+    // show all products reset the "setCategoryFilter" state
+    setCategoryFilter(productsList);
   };
 
   return (

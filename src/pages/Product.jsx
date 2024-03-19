@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { cartReducer } from "../slices/CartSlice";
+import axios from "axios";
 import Container from "../components/Container";
 import Breadcrums from "../components/Breadcrums";
 import Imege from "../components/Imege";
@@ -7,8 +11,28 @@ import { Rate } from "antd";
 import { TiPlus, TiMinus } from "react-icons/ti";
 
 const Product = ({ title }) => {
-  const [shipping, setShipping] = useState(true);
-  const [section, setSection] = useState("review");
+  const dispatch = useDispatch(); // dispatch for store the product in cart redux
+  const { id } = useParams(); // get the product id from the route
+  const [targetProduct, setTargetProduct] = useState(); // state for store the target product data
+  const [shipping, setShipping] = useState(true); // state for shipping section
+  const [section, setSection] = useState("review"); // state for toggle review & description section
+
+  useEffect(() => {
+    // for get the single product by the by from route params....
+
+    const fetchSingleProduct = () => {
+      axios.get(`https://dummyjson.com/products/${id}`).then((data) => {
+        setTargetProduct(data.data);
+      });
+    };
+
+    fetchSingleProduct();
+  }, []);
+
+  const addtoCart = () => {
+    dispatch(cartReducer(targetProduct));
+  };
+
   return (
     <section>
       <Container>
@@ -16,33 +40,25 @@ const Product = ({ title }) => {
 
         {/* display products start */}
         <Flex className={`items-center justify-center flex-wrap gap-5`}>
-          <Imege
-            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
-            src={`/item1.png`}
-          />
-          <Imege
-            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
-            src={`/item1.png`}
-          />
-          <Imege
-            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
-            src={`/item1.png`}
-          />
-          <Imege
-            className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px]`}
-            src={`/item1.png`}
-          />
+          {targetProduct?.images.map((img, i) => (
+            <Imege
+              className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px] object-cover`}
+              src={img}
+              alt={targetProduct.title}
+              key={i}
+            />
+          ))}
         </Flex>
         {/* display products end */}
 
         {/* info start */}
         <div className="mt-[49px] w-full lg:w-[780px]">
           <h1 className=" font-dm font-bold text-[39px] text-primary">
-            Product 1
+            {targetProduct?.title}
           </h1>
 
           <Flex className={`items-center gap-[25px] mt-[18px]`}>
-            <Rate disabled defaultValue={5} />
+            <Rate allowHalf disabled defaultValue={5} />
 
             <p>1 Review</p>
           </Flex>
@@ -54,7 +70,7 @@ const Product = ({ title }) => {
               $88.00
             </del>
             <span className=" font-dm font-bold text-[20px] text-primary">
-              $44.00
+              $ {targetProduct?.price}
             </span>
           </Flex>
 
@@ -118,7 +134,7 @@ const Product = ({ title }) => {
               STATUS:
             </h3>
             <span className=" font-dm font-normal text-[16px] leading-[23px] text-secondary">
-              In stock
+              ({targetProduct?.stock}) In stock
             </span>
           </Flex>
 
@@ -128,7 +144,10 @@ const Product = ({ title }) => {
             <button className="py-4 px-10 border-[1px] border-primary font-dm font-bold text-[14px] text-primary">
               Add to Wish List
             </button>
-            <button className="py-4 px-[64px] border-[1px] border-primary font-dm font-bold text-[14px] text-white bg-primary">
+            <button
+              onClick={addtoCart}
+              className="py-4 px-[64px] border-[1px] border-primary font-dm font-bold text-[14px] text-white bg-primary"
+            >
               Add to Cart
             </button>
           </Flex>
@@ -229,24 +248,7 @@ const Product = ({ title }) => {
               </div>
             ) : (
               <div>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Fugiat accusantium ea sit accusamus nesciunt? Minima nisi
-                  repellendus soluta maiores voluptatibus dolorum rerum numquam
-                  temporibus nobis quae dolor aut, quis tempore accusantium iste
-                  nihil beatae omnis veritatis inventore! Dignissimos est
-                  perspiciatis ratione impedit voluptas aliquam sunt, repellat
-                  consequuntur qui minus fugiat nesciunt obcaecati eius nobis
-                  voluptates eveniet deleniti vitae! Iste laudantium libero
-                  dolorem rerum. Iure, fuga natus unde culpa fugiat ex officia
-                  laborum. Animi quod omnis voluptates reprehenderit ratione
-                  quaerat optio dolores laborum rerum dolor dolore, dicta
-                  suscipit ut totam aut, esse maxime, officia quibusdam
-                  excepturi nulla? Expedita saepe suscipit, consectetur
-                  asperiores corporis alias facilis unde placeat, ipsa iure
-                  incidunt error ratione id rem enim et itaque tempora accusamus
-                  recusandae voluptatem.
-                </p>
+                <p>{targetProduct?.description}</p>
               </div>
             )}
           </div>

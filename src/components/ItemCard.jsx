@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Imege from "./Imege";
 import Flex from "./Flex";
 import { FaHeart } from "react-icons/fa";
@@ -6,8 +7,16 @@ import { TfiReload } from "react-icons/tfi";
 import { FaCartShopping } from "react-icons/fa6";
 
 const ItemCard = ({ item, className }) => {
+  const navigate = useNavigate();
+  const handleProduct = (id) => {
+    navigate(`/product/${id}`);
+  };
+
   return (
-    <div className={`w-auto md:w-[350px] lg:w-[370px] group ${className}`}>
+    <div
+      onClick={() => handleProduct(item.id)}
+      className={`w-auto md:w-[350px] lg:w-[370px] group ${className} cursor-pointer`}
+    >
       <div className=" relative overflow-hidden w-full">
         <Imege
           src={item.thumbnail}

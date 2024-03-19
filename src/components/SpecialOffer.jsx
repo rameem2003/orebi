@@ -1,8 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import Container from "./Container";
 import ItemCard from "./ItemCard";
-import { productsList } from "../API";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 
 function SampleNextArrow(props) {
@@ -64,6 +64,8 @@ function SamplePrevArrow(props) {
 }
 
 const SpecialOffer = () => {
+  // get the all products from redux store
+  const productsList = useSelector((state) => state.productArray.products);
   const settings = {
     dots: false,
     infinite: true,

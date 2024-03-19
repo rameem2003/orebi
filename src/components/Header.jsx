@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { productReducer } from "../slices/ProductSlice";
+import axios from "axios";
 import Container from "./Container";
 import Flex from "./Flex";
 import List from "./List";
 import ListItem from "./ListItem";
 import Imege from "./Imege";
-import axios from "axios";
 import placeholder from "../assets/placeholder.png";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
+  const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
+  console.log(cartProducts);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropDownRef = useRef();
   const accountRef = useRef();
@@ -20,10 +25,11 @@ const Header = () => {
   const [account, setAccount] = useState(false);
   const [cartDrop, setCartDrop] = useState(false);
   const [searchRef, setSearchRef] = useState(false);
-  const [search, setSearch] = useState([]);
-  const [filterResult, setFilterResult] = useState([]);
+  const [search, setSearch] = useState([]); // initial state all products for searching
+  const [filterResult, setFilterResult] = useState([]); // state for storing the products after searching
   useEffect(() => {
     document.addEventListener("click", (e) => {
+      // all referances
       // if (dropDownRef.current.contains(e.target)) {
       //   setDropDown(true);
       // } else {
@@ -48,29 +54,34 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    /**
+     * for storing the initial all products in search state and
+     * store in redux store for global
+     */
     const fetchProducts = () => {
-      axios
-        .get("https://dummyjson.com/products")
-        .then((data) => setSearch(data.data.products));
+      axios.get("https://dummyjson.com/products").then((data) => {
+        setSearch(data.data.products);
+        dispatch(productReducer(data.data.products));
+      });
     };
 
     fetchProducts();
   }, []);
 
   const handleSearch = (e) => {
+    // for search evet when by typing anything in serrch box
     if (e.target.value == "") {
       setFilterResult([]);
     } else {
       const searchResult = search.filter((searchItem) =>
         searchItem.title.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      setFilterResult(searchResult);
+      setFilterResult(searchResult); // stae for store the search result
     }
-
-    // console.log(searchResult);
   };
 
   const goToFilter = () => {
+    // after filter show the filtered result in productfilter route
     navigate("/productfilter", { state: { key: filterResult } });
   };
 
@@ -211,27 +222,33 @@ const Header = () => {
 
               {cartDrop && (
                 <div className=" w-[360px] bg-white mt-[15px] absolute right-0 top-0 z-50">
-                  <Flex
-                    className={`h-[120px] items-center justify-between p-5 bg-[#f5f5f3]`}
-                  >
-                    <div className="w-4/12">
-                      <Imege
-                        className={`h-[80px] w-[80px]`}
-                        src={placeholder}
-                      />
-                    </div>
-                    <div className="w-8/12 relative">
-                      <h3 className=" font-dm font-bold text-[14px] text-primary">
-                        Black Smart Watch
-                      </h3>
+                  {/* all cart items start */}
 
-                      <p className=" font-dm font-bold text-[14px] text-primary mt-3">
-                        $44.00
-                      </p>
+                  {cartProducts.map((cItem, i) => (
+                    <Flex
+                      className={`h-[120px] items-center justify-between p-5 bg-[#f5f5f3]`}
+                    >
+                      <div className="w-4/12">
+                        <Imege
+                          className={`h-[80px] w-[80px]`}
+                          src={cItem.thumbnail}
+                        />
+                      </div>
+                      <div className="w-8/12 relative">
+                        <h3 className=" font-dm font-bold text-[14px] text-primary">
+                          {cItem.title}
+                        </h3>
 
-                      <FaTimes className=" absolute right-3 top-[50%] translate-y-[-50%]" />
-                    </div>
-                  </Flex>
+                        <p className=" font-dm font-bold text-[14px] text-primary mt-3">
+                          ${cItem.price}
+                        </p>
+
+                        <FaTimes className=" absolute right-3 top-[50%] translate-y-[-50%]" />
+                      </div>
+                    </Flex>
+                  ))}
+
+                  {/* all cart items end */}
 
                   <div className="p-5">
                     <p className=" font-dm font-normal text-[16px] text-secondary">
