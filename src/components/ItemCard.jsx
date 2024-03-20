@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartReducer } from "../slices/CartSlice";
 import Imege from "./Imege";
 import Flex from "./Flex";
 import { FaHeart } from "react-icons/fa";
@@ -7,17 +9,27 @@ import { TfiReload } from "react-icons/tfi";
 import { FaCartShopping } from "react-icons/fa6";
 
 const ItemCard = ({ item, className }) => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch(); // dispatch for cart redux
+  const navigate = useNavigate(); // navigate for show the product to product page which is clicked
+
   const handleProduct = (id) => {
+    // show product in product page
     navigate(`/product/${id}`);
+  };
+
+  const handleCart = (item) => {
+    // add to cart
+    dispatch(cartReducer(item));
   };
 
   return (
     <div
-      onClick={() => handleProduct(item.id)}
       className={`w-auto md:w-[350px] lg:w-[370px] group ${className} cursor-pointer`}
     >
-      <div className=" relative overflow-hidden w-full">
+      <div
+        onClick={() => handleProduct(item.id)}
+        className=" relative overflow-hidden w-full"
+      >
         <Imege
           src={item.thumbnail}
           alt={item.itemName}
@@ -36,12 +48,9 @@ const ItemCard = ({ item, className }) => {
           >
             Compare <TfiReload className="text-primary font-bold font-dm" />
           </a>
-          <a
-            href=""
-            className=" font-dm font-normal text-[16px] text-secondary flex items-center gap-[15px] hover:font-bold hover:text-primary"
-          >
+          <button className=" font-dm font-normal text-[16px] text-secondary flex items-center gap-[15px] hover:font-bold hover:text-primary">
             Add to Cart <FaCartShopping className="text-primary" />
-          </a>
+          </button>
         </Flex>
 
         {item.new && (

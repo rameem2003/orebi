@@ -30,7 +30,7 @@ const Product = ({ title }) => {
   }, []);
 
   const addtoCart = () => {
-    dispatch(cartReducer(targetProduct));
+    dispatch(cartReducer({ ...targetProduct, qun: 1 }));
   };
 
   return (

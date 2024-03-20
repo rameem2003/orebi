@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProduct, updateQuntity } from "../slices/CartSlice";
 import Container from "../components/Container";
 import Flex from "../components/Flex";
-import { FaTimes } from "react-icons/fa";
 import Imege from "../components/Imege";
 import Breadcrums from "../components/Breadcrums";
+import { FaTimes } from "react-icons/fa";
 
 const Cart = ({ title }) => {
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch(); // dispatch for cart redux
+  const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
+
+  const removeItemFromCart = (item) => {
+    // for remove the item from redux
+    dispatch(removeProduct(item.id));
+  };
+
+  const quantity = (index, n) => {
+    // setQun((qun = qun + n));
+    dispatch(updateQuntity({ id: index, n }));
+    console.log(index);
+  };
+
+  const calculateTotal = () => {
+    let p = 0;
+    cartProducts.map((cItem) => (p = p + cItem.price * cItem.qun));
+    setTotal(p);
+  };
+
+  useEffect(() => {
+    calculateTotal();
+  });
+
   return (
     <section>
       <Container>
@@ -38,46 +65,66 @@ const Cart = ({ title }) => {
           {/* cart header end */}
 
           {/* products section start */}
-          <Flex className="border-[1px] border-[#F0F0F0] py-[30px] px-5 flex-wrap">
-            <div className="w-1/4">
-              <Flex className={`items-center gap-10`}>
-                <FaTimes />
-                <Flex className={`items-center gap-5`}>
-                  <Imege className={`w-[100px] h-[100px]`} src={`/item1.png`} />
-                  <h3 className=" font-dm font-bold text-[16px] text-primary">
-                    Product name
+          {cartProducts.length > 0 ? (
+            cartProducts.map((cItem, i) => (
+              <Flex
+                className="border-[1px] border-[#F0F0F0] py-[30px] px-5 flex-wrap"
+                key={i}
+              >
+                <div className="w-1/4">
+                  <Flex className={`items-center gap-10`}>
+                    <FaTimes onClick={() => removeItemFromCart(cItem)} />
+                    <Flex className={`items-center gap-5`}>
+                      <Imege
+                        className={`w-[100px] h-[100px]`}
+                        src={cItem.thumbnail}
+                      />
+                      <h3 className=" font-dm font-bold text-[16px] text-primary">
+                        {cItem.title}
+                      </h3>
+                    </Flex>
+                  </Flex>
+                </div>
+
+                <Flex className="w-1/4 items-center">
+                  <h3 className=" font-dm font-bold text-[20px] text-primary">
+                    ${cItem.price}
+                  </h3>
+                </Flex>
+
+                <Flex className={`w-1/4 items-center`}>
+                  <Flex className={`border-[1px] border-[#F0F0F0]`}>
+                    <button
+                      onClick={() => quantity(i, -1)}
+                      className=" font-dm font-normal text-[16px] leading-[30px] text-secondary py-[3px] px-[21px]"
+                    >
+                      -
+                    </button>
+                    <button className=" font-dm font-normal text-[16px] leading-[30px] text-secondary py-[3px] px-[21px]">
+                      {cItem.qun}
+                    </button>
+                    <button
+                      onClick={() => quantity(i, +1)}
+                      className=" font-dm font-normal text-[16px] leading-[30px] text-secondary py-[3px] px-[21px]"
+                    >
+                      +
+                    </button>
+                  </Flex>
+                </Flex>
+
+                <Flex className="w-1/4 items-center">
+                  <h3 className=" font-dm font-bold text-[20px] text-primary">
+                    ${cItem.price * cItem.qun}
                   </h3>
                 </Flex>
               </Flex>
-            </div>
+            ))
+          ) : (
+            <h1 className=" font-dm font-semibold text-xl text-center my-4">
+              Cart is Empty
+            </h1>
+          )}
 
-            <Flex className="w-1/4 items-center">
-              <h3 className=" font-dm font-bold text-[20px] text-primary">
-                $44.00
-              </h3>
-            </Flex>
-
-            <Flex className={`w-1/4 items-center`}>
-              <Flex className={`border-[1px] border-[#F0F0F0]`}>
-                <button className=" font-dm font-normal text-[16px] leading-[30px] text-secondary py-[3px] px-[21px]">
-                  {" "}
-                  -{" "}
-                </button>
-                <button className=" font-dm font-normal text-[16px] leading-[30px] text-secondary py-[3px] px-[21px]">
-                  1
-                </button>
-                <button className=" font-dm font-normal text-[16px] leading-[30px] text-secondary py-[3px] px-[21px]">
-                  +
-                </button>
-              </Flex>
-            </Flex>
-
-            <Flex className="w-1/4 items-center">
-              <h3 className=" font-dm font-bold text-[20px] text-primary">
-                $44.00
-              </h3>
-            </Flex>
-          </Flex>
           {/* products section end */}
 
           {/* sise, coupon section start */}
@@ -128,7 +175,7 @@ const Cart = ({ title }) => {
                   Total
                 </p>
                 <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
-                  389.99 $
+                  {total} $
                 </p>
               </Flex>
             </div>

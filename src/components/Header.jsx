@@ -2,21 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { productReducer } from "../slices/ProductSlice";
+import { removeProduct } from "../slices/CartSlice";
 import axios from "axios";
 import Container from "./Container";
 import Flex from "./Flex";
 import List from "./List";
 import ListItem from "./ListItem";
 import Imege from "./Imege";
-import placeholder from "../assets/placeholder.png";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 const Header = () => {
   const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
-  console.log(cartProducts);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch(); // dispatch for cart redux
+  const navigate = useNavigate(); // for go to filterproduct page and show the filtered product
   const dropDownRef = useRef();
   const accountRef = useRef();
   const cartRef = useRef();
@@ -83,6 +82,11 @@ const Header = () => {
   const goToFilter = () => {
     // after filter show the filtered result in productfilter route
     navigate("/productfilter", { state: { key: filterResult } });
+  };
+
+  const removeItemFromCart = (item) => {
+    // for remove the item from redux
+    dispatch(removeProduct(item.id));
   };
 
   return (
@@ -224,29 +228,39 @@ const Header = () => {
                 <div className=" w-[360px] bg-white mt-[15px] absolute right-0 top-0 z-50">
                   {/* all cart items start */}
 
-                  {cartProducts.map((cItem, i) => (
-                    <Flex
-                      className={`h-[120px] items-center justify-between p-5 bg-[#f5f5f3]`}
-                    >
-                      <div className="w-4/12">
-                        <Imege
-                          className={`h-[80px] w-[80px]`}
-                          src={cItem.thumbnail}
-                        />
-                      </div>
-                      <div className="w-8/12 relative">
-                        <h3 className=" font-dm font-bold text-[14px] text-primary">
-                          {cItem.title}
-                        </h3>
+                  {cartProducts.length > 0 ? (
+                    cartProducts.map((cItem, i) => (
+                      <Flex
+                        key={i}
+                        className={`h-[120px] items-center justify-between p-5 bg-[#f5f5f3]`}
+                      >
+                        <div className="w-4/12">
+                          <Imege
+                            className={`h-[80px] w-[80px]`}
+                            src={cItem.thumbnail}
+                          />
+                        </div>
+                        <div className="w-8/12 relative">
+                          <h3 className=" font-dm font-bold text-[14px] text-primary">
+                            {cItem.title}
+                          </h3>
 
-                        <p className=" font-dm font-bold text-[14px] text-primary mt-3">
-                          ${cItem.price}
-                        </p>
+                          <p className=" font-dm font-bold text-[14px] text-primary mt-3">
+                            ${cItem.price}
+                          </p>
 
-                        <FaTimes className=" absolute right-3 top-[50%] translate-y-[-50%]" />
-                      </div>
-                    </Flex>
-                  ))}
+                          <FaTimes
+                            onClick={() => removeItemFromCart(cItem)}
+                            className=" absolute right-3 top-[50%] translate-y-[-50%]"
+                          />
+                        </div>
+                      </Flex>
+                    ))
+                  ) : (
+                    <h1 className=" font-dm font-semibold text-xl text-center">
+                      Cart is Empty
+                    </h1>
+                  )}
 
                   {/* all cart items end */}
 
