@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProduct, updateQuntity } from "../slices/CartSlice";
+import { priceReducer } from "../slices/PriceSlice";
 import Container from "../components/Container";
 import Flex from "../components/Flex";
 import Imege from "../components/Imege";
@@ -9,7 +10,7 @@ import { FaTimes } from "react-icons/fa";
 
 const Cart = ({ title }) => {
   const [total, setTotal] = useState(0);
-  const dispatch = useDispatch(); // dispatch for cart redux
+  const dispatch = useDispatch(); // dispatch for redux
   const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
 
   const removeItemFromCart = (item) => {
@@ -18,15 +19,17 @@ const Cart = ({ title }) => {
   };
 
   const quantity = (index, n) => {
-    // setQun((qun = qun + n));
+    // update the quantity of the product
     dispatch(updateQuntity({ id: index, n }));
     console.log(index);
   };
 
   const calculateTotal = () => {
+    // calculate the grand total
     let p = 0;
     cartProducts.map((cItem) => (p = p + cItem.price * cItem.qun));
     setTotal(p);
+    dispatch(priceReducer(total));
   };
 
   useEffect(() => {
@@ -73,7 +76,10 @@ const Cart = ({ title }) => {
               >
                 <div className="w-1/4">
                   <Flex className={`items-center gap-10`}>
-                    <FaTimes onClick={() => removeItemFromCart(cItem)} />
+                    <FaTimes
+                      className=" cursor-pointer"
+                      onClick={() => removeItemFromCart(cItem)}
+                    />
                     <Flex className={`items-center gap-5`}>
                       <Imege
                         className={`w-[100px] h-[100px]`}

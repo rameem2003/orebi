@@ -15,6 +15,7 @@ const Shop = ({ title }) => {
   const productsList = useSelector((state) => state.productArray.products); // get all products by initial from redux store
   const [categoryFilter, setCategoryFilter] = useState([]); // state for filter products by the category name
   const [categoty, setCetegory] = useState([]); // filter the unique category name and store in the state
+  const [brand, setBrand] = useState([]); // filter the unique brand name and store in the state
   const [showColor, setShowColor] = useState(true); // show color option
   const [showBrand, setShowBrand] = useState(true); // show brand option
 
@@ -30,8 +31,8 @@ const Shop = ({ title }) => {
   // }, []);
 
   useEffect(() => {
-    // filter the unique category name and store in the state
-    setCetegory([...new Set(productsList.map((item) => item.category))]);
+    setCetegory([...new Set(productsList.map((item) => item.category))]); // filter the unique category name and store in the state
+    setBrand([...new Set(productsList.map((item) => item.brand))]); // filter the unique brand name and store in the state
     setCategoryFilter(productsList);
   }, [productsList]);
 
@@ -41,10 +42,17 @@ const Shop = ({ title }) => {
     setCategoryFilter(filterCategory);
   };
 
+  const showByBrand = (brand) => {
+    const brandFilter = productsList.filter((item) => item.brand == brand);
+    setCategoryFilter(brandFilter);
+  };
+
   const showAllProducts = () => {
     // show all products reset the "setCategoryFilter" state
     setCategoryFilter(productsList);
   };
+
+  console.log(brand);
 
   return (
     <section>
@@ -121,11 +129,9 @@ const Shop = ({ title }) => {
 
               {showBrand && (
                 <List>
-                  <ShopByBrand brand={`Brand 1`} />
-                  <ShopByBrand brand={`Brand 2`} />
-                  <ShopByBrand brand={`Brand 3`} />
-                  <ShopByBrand brand={`Brand 4`} />
-                  <ShopByBrand brand={`Brand 5`} />
+                  {brand.map((brandName) => (
+                    <ShopByBrand onClick={showByBrand} brand={brandName} />
+                  ))}
                 </List>
               )}
             </div>

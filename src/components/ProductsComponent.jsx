@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Flex from "./Flex";
 import PaginationForGrid from "./PaginationForGrid";
 import PaginationForList from "./PaginationForList";
@@ -52,7 +51,7 @@ const ProductsComponent = ({ products }) => {
               id="countries"
               className="w-[239px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
             >
-              <option selected>Choose a country</option>
+              <option defaultValue={"wef"}>Choose a country</option>
               <option value="US">United States</option>
               <option value="CA">Canada</option>
               <option value="FR">France</option>
@@ -77,7 +76,7 @@ const ProductsComponent = ({ products }) => {
               id="countries"
               className="w-[139px] border border-gray-300 font-dm font-normal text-[16px] leading-[30px] text-secondary px-5 py-2"
             >
-              <option value={6} selected>
+              <option defaultValue={6} value={6}>
                 6
               </option>
               <option value={12}>12</option>

@@ -14,6 +14,7 @@ import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 const Header = () => {
   const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
+  const totalPrice = useSelector((state) => state.price.price); // total price from cart
   const dispatch = useDispatch(); // dispatch for cart redux
   const navigate = useNavigate(); // for go to filterproduct page and show the filtered product
   const dropDownRef = useRef();
@@ -158,6 +159,7 @@ const Header = () => {
               className=" absolute text-[15px] font-bold top-[50%] translate-y-[-50%] right-4 cursor-pointer"
             />
 
+            {/* search result start */}
             {searchRef && (
               <div className=" w-full h-[300px] overflow-y-scroll bg-white absolute top-14 left-0 z-[1]">
                 {filterResult.length > 0 ? (
@@ -194,6 +196,7 @@ const Header = () => {
                 )}
               </div>
             )}
+            {/* search result end */}
           </div>
           {/* search end */}
 
@@ -227,48 +230,49 @@ const Header = () => {
               {cartDrop && (
                 <div className=" w-[360px] bg-white mt-[15px] absolute right-0 top-0 z-50">
                   {/* all cart items start */}
+                  <div className=" w-full max-h-[300px] overflow-y-scroll">
+                    {cartProducts.length > 0 ? (
+                      cartProducts.map((cItem, i) => (
+                        <Flex
+                          key={i}
+                          className={`h-[120px] items-center justify-between p-5 bg-[#f5f5f3]`}
+                        >
+                          <div className="w-4/12">
+                            <Imege
+                              className={`h-[80px] w-[80px]`}
+                              src={cItem.thumbnail}
+                            />
+                          </div>
+                          <div className="w-8/12 relative">
+                            <h3 className=" font-dm font-bold text-[14px] text-primary">
+                              {cItem.title}
+                            </h3>
 
-                  {cartProducts.length > 0 ? (
-                    cartProducts.map((cItem, i) => (
-                      <Flex
-                        key={i}
-                        className={`h-[120px] items-center justify-between p-5 bg-[#f5f5f3]`}
-                      >
-                        <div className="w-4/12">
-                          <Imege
-                            className={`h-[80px] w-[80px]`}
-                            src={cItem.thumbnail}
-                          />
-                        </div>
-                        <div className="w-8/12 relative">
-                          <h3 className=" font-dm font-bold text-[14px] text-primary">
-                            {cItem.title}
-                          </h3>
+                            <p className=" font-dm font-bold text-[14px] text-primary mt-3">
+                              ${cItem.price}
+                            </p>
 
-                          <p className=" font-dm font-bold text-[14px] text-primary mt-3">
-                            ${cItem.price}
-                          </p>
-
-                          <FaTimes
-                            onClick={() => removeItemFromCart(cItem)}
-                            className=" absolute right-3 top-[50%] translate-y-[-50%]"
-                          />
-                        </div>
-                      </Flex>
-                    ))
-                  ) : (
-                    <h1 className=" font-dm font-semibold text-xl text-center">
-                      Cart is Empty
-                    </h1>
-                  )}
+                            <FaTimes
+                              onClick={() => removeItemFromCart(cItem)}
+                              className=" absolute right-3 top-[50%] translate-y-[-50%]"
+                            />
+                          </div>
+                        </Flex>
+                      ))
+                    ) : (
+                      <h1 className=" font-dm font-semibold text-xl text-center">
+                        Cart is Empty
+                      </h1>
+                    )}
+                  </div>
 
                   {/* all cart items end */}
 
                   <div className="p-5">
                     <p className=" font-dm font-normal text-[16px] text-secondary">
-                      Subtotal:{" "}
+                      Subtotal:
                       <span className=" font-dm font-bold text-[16px] text-primary">
-                        $44.00
+                        ${totalPrice}
                       </span>
                     </p>
 

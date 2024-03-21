@@ -28,7 +28,7 @@ I'm a passionate front-end developer from Bangladesh. Complete Diploma Engineeri
 
 Orebi Web UI
 
-Login Screen
+Home Screen
 
 ![Logo](https://i.ibb.co/5cfdxL9/screencapture-localhost-5173-2024-03-03-08-36-48.png)
 
@@ -41,6 +41,10 @@ Login Screen
 - Tailwind CSS
 
 - React Slick
+
+- React Paginate
+
+- React Redux
 
 ## Tech Stack
 
