@@ -7,7 +7,7 @@ import Container from "../components/Container";
 import Breadcrums from "../components/Breadcrums";
 import Imege from "../components/Imege";
 import Flex from "../components/Flex";
-import { Rate } from "antd";
+import StarRating from "../components/StarRating";
 import { TiPlus, TiMinus } from "react-icons/ti";
 
 const Product = ({ title }) => {
@@ -58,7 +58,9 @@ const Product = ({ title }) => {
           </h1>
 
           <Flex className={`items-center gap-[25px] mt-[18px]`}>
-            <Rate allowHalf disabled defaultValue={5} />
+            <Flex className={`gap-1`}>
+              <StarRating rating={targetProduct?.rating} />
+            </Flex>
 
             <p>1 Review</p>
           </Flex>

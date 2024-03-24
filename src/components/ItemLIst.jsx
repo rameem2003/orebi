@@ -6,6 +6,7 @@ import { Rate } from "antd";
 import { FaHeart } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
 import { FaCartShopping } from "react-icons/fa6";
+import StarRating from "./StarRating";
 
 const ItemLIst = ({ item }) => {
   const navigate = useNavigate(); // navigate for show the product to product page which is clicked
@@ -32,7 +33,11 @@ const ItemLIst = ({ item }) => {
               {item ? item.description : "fvwierwer"}
             </h2>
 
-            <Rate allowHalf disabled defaultValue={item ? item.rating : 5} />
+            {/* <Rate allowHalf disabled defaultValue={item ? item.rating : 5} /> */}
+
+            <Flex className={`gap-1`}>
+              <StarRating rating={item.rating} />
+            </Flex>
           </div>
         </Flex>
 
