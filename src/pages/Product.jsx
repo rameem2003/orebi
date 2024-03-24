@@ -229,7 +229,9 @@ const Product = ({ title }) => {
                       <h1 className=" font-dm font-normal text-[16px] leading-[30px] text-primary">
                         John Ford
                       </h1>
-                      <Rate disabled defaultValue={5} />
+                      <Flex>
+                        <StarRating rating={5} />
+                      </Flex>
                     </Flex>
 
                     <span className=" font-dm font-normal text-[16px] text-secondary">
