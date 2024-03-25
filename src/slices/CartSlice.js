@@ -30,7 +30,7 @@ export const CartSlice = createSlice({
     },
 
     updateQuntity: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
 
       state.cart[action.payload.id].qun += action.payload.n;
 

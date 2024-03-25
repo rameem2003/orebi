@@ -14,19 +14,33 @@ import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 const Header = () => {
   const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
-  const totalPrice = useSelector((state) => state.price.price); // total price from cart
   const dispatch = useDispatch(); // dispatch for cart redux
-  const navigate = useNavigate(); // for go to filterproduct page and show the filtered product
+  const navigate = useNavigate(); // for navigation
   const dropDownRef = useRef();
   const accountRef = useRef();
   const cartRef = useRef();
   const searchResultRef = useRef();
+  const [total, setTotal] = useState(0); // for calculate & store the price
   const [dropDown, setDropDown] = useState(false);
   const [account, setAccount] = useState(false);
   const [cartDrop, setCartDrop] = useState(false);
   const [searchRef, setSearchRef] = useState(false);
   const [search, setSearch] = useState([]); // initial state all products for searching
   const [filterResult, setFilterResult] = useState([]); // state for storing the products after searching
+
+  const calculateTotal = () => {
+    // calculate the grand total
+    let p = 0;
+    cartProducts.map(
+      (cItem) =>
+        (p =
+          p +
+          (cItem.price - (cItem.price * cItem.discountPercentage) / 100) *
+            cItem.qun)
+    );
+    setTotal(p);
+  };
+
   useEffect(() => {
     document.addEventListener("click", (e) => {
       // all referances
@@ -52,6 +66,10 @@ const Header = () => {
         : setSearchRef(false);
     });
   }, []);
+
+  useEffect(() => {
+    calculateTotal();
+  });
 
   useEffect(() => {
     /**
@@ -163,8 +181,9 @@ const Header = () => {
             {searchRef && (
               <div className=" w-full h-[300px] overflow-y-scroll bg-white absolute top-14 left-0 z-[1]">
                 {filterResult.length > 0 ? (
-                  filterResult.map((filterItem) => (
+                  filterResult.map((filterItem, i) => (
                     <Flex
+                      key={i}
                       className={`p-2 mb-2 bg-white items-center justify-between hover:bg-gray-200`}
                     >
                       <Flex className={`items-center gap-4`}>
@@ -268,11 +287,12 @@ const Header = () => {
 
                   {/* all cart items end */}
 
+                  {/* cart & check navigation start */}
                   <div className="p-5">
                     <p className=" font-dm font-normal text-[16px] text-secondary">
                       Subtotal:
                       <span className=" font-dm font-bold text-[16px] text-primary">
-                        ${totalPrice}
+                        ${total}
                       </span>
                     </p>
 
@@ -291,6 +311,7 @@ const Header = () => {
                       </Link>
                     </Flex>
                   </div>
+                  {/* cart & check navigation end */}
                 </div>
               )}
             </div>

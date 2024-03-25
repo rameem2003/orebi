@@ -53,11 +53,9 @@ const ItemCard = ({ item, className }) => {
           </button>
         </Flex>
 
-        {item.new && (
-          <span className=" absolute top-5 left-5 inline-block py-[9px] px-8 bg-primary font-dm font-bold text-[14px] text-white">
-            New
-          </span>
-        )}
+        <span className=" absolute top-5 left-5 inline-block py-[9px] px-8 bg-primary font-dm font-bold text-[14px] text-white">
+          {item ? item.stock : "100"} in stock
+        </span>
       </div>
 
       <div className={`pt-6`}>

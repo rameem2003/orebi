@@ -52,8 +52,6 @@ const Shop = ({ title }) => {
     setCategoryFilter(productsList);
   };
 
-  console.log(brand);
-
   return (
     <section>
       <Container>
@@ -129,8 +127,12 @@ const Shop = ({ title }) => {
 
               {showBrand && (
                 <List>
-                  {brand.map((brandName) => (
-                    <ShopByBrand onClick={showByBrand} brand={brandName} />
+                  {brand.map((brandName, i) => (
+                    <ShopByBrand
+                      onClick={showByBrand}
+                      brand={brandName}
+                      key={i}
+                    />
                   ))}
                 </List>
               )}

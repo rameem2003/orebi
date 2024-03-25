@@ -6,7 +6,7 @@ const StarRating = ({ rating }) => {
     const number = index + 0.5;
 
     return (
-      <div className="gap-1">
+      <div className="gap-1" key={index}>
         {rating >= index + 1 ? (
           <FaStar className=" text-yellow-500" />
         ) : rating > number ? (

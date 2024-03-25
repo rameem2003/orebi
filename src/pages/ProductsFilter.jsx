@@ -6,11 +6,9 @@ import { useLocation } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
 
 const ProductsFilter = () => {
-  const location = useLocation();
+  const location = useLocation(); // get the data from the route
 
   const [filter, setFilter] = useState(location.state.key);
-
-  // let filter = location.state.key;
 
   console.log(filter);
   return (

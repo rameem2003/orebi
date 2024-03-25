@@ -1,22 +1,29 @@
 import React from "react";
 import Container from "../components/Container";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Flex from "../components/Flex";
 import Breadcrums from "../components/Breadcrums";
 
 const Checkout = ({ title }) => {
+  const location = useLocation(); // get the data from the route
+
+  const { cartProducts, price } = location.state;
+  // console.log(cartProducts);
   return (
     <section>
       <Container>
         <Breadcrums title={title} />
 
+        {/* coupon section start */}
         <div className="mt-[127px]">
           <p className=" font-dm font-normal text-[16px] leading-[30px] text-secondary">
             Have a coupon?{" "}
             <Link className=" text-primary">Click here to enter your code</Link>
           </p>
         </div>
+        {/* coupon section end */}
 
+        {/* billing form start */}
         <form action="" className="mt-[119px] w-full lg:w-[1055px]">
           <h3 className="font-dm font-bold text-[40px] text-primary mb-[42px]">
             Billing Details
@@ -202,6 +209,7 @@ const Checkout = ({ title }) => {
             />
           </div>
 
+          {/* additional info start */}
           <div className="mt-[129px]">
             <h4 className=" font-dm font-bold text-[40px] text-primary mb-[42px]">
               Additional Information
@@ -224,7 +232,9 @@ const Checkout = ({ title }) => {
               />
             </div>
           </div>
+          {/* additional info end */}
 
+          {/* order info start */}
           <div className="mt-[129px]">
             <h4 className=" font-dm font-bold text-[40px] text-primary mb-[42px]">
               Your Order
@@ -239,20 +249,38 @@ const Checkout = ({ title }) => {
                   Total
                 </p>
               </Flex>
-              <Flex>
-                <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-bold text-[16px] text-primary">
-                  Product name x 1
-                </p>
-                <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
-                  389.99 $
-                </p>
-              </Flex>
+
+              {cartProducts.length > 0 ? (
+                cartProducts.map((cItem, i) => (
+                  <Flex key={i}>
+                    <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-bold text-[16px] text-primary">
+                      {cItem.title} (x{cItem.qun})
+                    </p>
+                    <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
+                      {(cItem.price -
+                        (cItem.price * cItem.discountPercentage) / 100) *
+                        cItem.qun}{" "}
+                      $
+                    </p>
+                  </Flex>
+                ))
+              ) : (
+                <Flex>
+                  <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-bold text-[16px] text-primary">
+                    Product name x 1
+                  </p>
+                  <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
+                    389.99 $
+                  </p>
+                </Flex>
+              )}
+
               <Flex>
                 <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-bold text-[16px] text-primary">
                   Subtotal
                 </p>
                 <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
-                  389.99 $
+                  {price} $
                 </p>
               </Flex>
               <Flex>
@@ -260,7 +288,7 @@ const Checkout = ({ title }) => {
                   Total
                 </p>
                 <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
-                  389.99 $
+                  {price} $
                 </p>
               </Flex>
             </div>
@@ -316,7 +344,9 @@ const Checkout = ({ title }) => {
               </button>
             </div>
           </div>
+          {/* order info end */}
         </form>
+        {/* billing form end */}
       </Container>
     </section>
   );

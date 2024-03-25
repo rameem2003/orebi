@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProduct, updateQuntity } from "../slices/CartSlice";
-import { priceReducer } from "../slices/PriceSlice";
+import { useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import Flex from "../components/Flex";
 import Imege from "../components/Imege";
@@ -9,7 +9,8 @@ import Breadcrums from "../components/Breadcrums";
 import { FaTimes } from "react-icons/fa";
 
 const Cart = ({ title }) => {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0); // for calculate & store the price
+  const navigate = useNavigate(); // for navigation
   const dispatch = useDispatch(); // dispatch for redux
   const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
 
@@ -21,20 +22,31 @@ const Cart = ({ title }) => {
   const quantity = (index, n) => {
     // update the quantity of the product
     dispatch(updateQuntity({ id: index, n }));
-    console.log(index);
+    // console.log(index);
   };
 
   const calculateTotal = () => {
     // calculate the grand total
     let p = 0;
-    cartProducts.map((cItem) => (p = p + cItem.price * cItem.qun));
+    cartProducts.map(
+      (cItem) =>
+        (p =
+          p +
+          (cItem.price - (cItem.price * cItem.discountPercentage) / 100) *
+            cItem.qun)
+    );
     setTotal(p);
-    dispatch(priceReducer(total));
   };
 
   useEffect(() => {
     calculateTotal();
   });
+
+  // console.log(total);
+
+  const goToCheckout = () => {
+    navigate("/checkout", { state: { price: total, cartProducts } });
+  };
 
   return (
     <section>
@@ -120,7 +132,11 @@ const Cart = ({ title }) => {
 
                 <Flex className="w-1/4 items-center">
                   <h3 className=" font-dm font-bold text-[20px] text-primary">
-                    ${cItem.price * cItem.qun}
+                    ${" "}
+                    {(cItem.price -
+                      (cItem.price * cItem.discountPercentage) / 100) *
+                      cItem.qun}{" "}
+                    {/* {cItem.price * cItem.qun} */}
                   </h3>
                 </Flex>
               </Flex>
@@ -173,7 +189,7 @@ const Cart = ({ title }) => {
                   Subtotal
                 </p>
                 <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
-                  389.99 $
+                  {total} $
                 </p>
               </Flex>
               <Flex>
@@ -186,7 +202,10 @@ const Cart = ({ title }) => {
               </Flex>
             </div>
 
-            <button className=" font-dm font-bold text-[14px] text-white bg-primary py-4 px-8 ms-auto mt-[30px] block">
+            <button
+              onClick={goToCheckout}
+              className=" font-dm font-bold text-[14px] text-white bg-primary py-4 px-8 ms-auto mt-[30px] block"
+            >
               Proceed to Checkout
             </button>
           </div>

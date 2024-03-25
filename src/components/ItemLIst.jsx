@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Flex from "./Flex";
 import Imege from "./Imege";
-import { Rate } from "antd";
 import { FaHeart } from "react-icons/fa";
 import { TfiReload } from "react-icons/tfi";
 import { FaCartShopping } from "react-icons/fa6";
@@ -26,14 +25,15 @@ const ItemLIst = ({ item }) => {
 
           <div>
             <h1 className=" font-dm font-bold text-[20px] text-primary">
-              {item ? item.title : "Product"}
+              {item ? item.title : "Product"}{" "}
+              <span className=" text-sm font-normal">
+                ({item ? item.stock : "100"} in stock)
+              </span>
             </h1>
 
             <h2 className="font-dm font-semibold text-[14px] text-primary my-3">
               {item ? item.description : "fvwierwer"}
             </h2>
-
-            {/* <Rate allowHalf disabled defaultValue={item ? item.rating : 5} /> */}
 
             <Flex className={`gap-1`}>
               <StarRating rating={item.rating} />
