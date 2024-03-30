@@ -234,11 +234,11 @@ const Banner = () => {
   return (
     <section>
       <Slider {...settings}>
-        <Imege src={banner} />
-        <Imege src={banner} />
-        <Imege src={banner} />
-        <Imege src={banner} />
-        <Imege src={banner} />
+        <Imege src={banner} className={`w-full`} />
+        <Imege src={banner} className={`w-full`} />
+        <Imege src={banner} className={`w-full`} />
+        <Imege src={banner} className={`w-full`} />
+        <Imege src={banner} className={`w-full`} />
       </Slider>
 
       <div className=" bg-white py-[30px] border-[1px] border-[#F0F0F0]">
