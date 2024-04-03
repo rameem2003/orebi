@@ -32,8 +32,10 @@ const Cart = ({ title }) => {
       (cItem) =>
         (p =
           p +
-          (cItem.price - (cItem.price * cItem.discountPercentage) / 100) *
-            cItem.qun)
+          Math.round(
+            (cItem.price - (cItem.price * cItem.discountPercentage) / 100) *
+              cItem.qun
+          ))
     );
     setTotal(p);
   };
@@ -132,11 +134,12 @@ const Cart = ({ title }) => {
 
                 <Flex className="w-1/4 items-center">
                   <h3 className=" font-dm font-bold text-[20px] text-primary">
-                    ${" "}
-                    {(cItem.price -
-                      (cItem.price * cItem.discountPercentage) / 100) *
-                      cItem.qun}{" "}
-                    {/* {cItem.price * cItem.qun} */}
+                    $
+                    {Math.round(
+                      (cItem.price -
+                        (cItem.price * cItem.discountPercentage) / 100) *
+                        cItem.qun
+                    )}
                   </h3>
                 </Flex>
               </Flex>

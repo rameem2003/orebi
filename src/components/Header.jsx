@@ -35,8 +35,10 @@ const Header = () => {
       (cItem) =>
         (p =
           p +
-          (cItem.price - (cItem.price * cItem.discountPercentage) / 100) *
-            cItem.qun)
+          Math.round(
+            (cItem.price - (cItem.price * cItem.discountPercentage) / 100) *
+              cItem.qun
+          ))
     );
     setTotal(p);
   };

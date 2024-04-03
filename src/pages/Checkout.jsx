@@ -257,9 +257,11 @@ const Checkout = ({ title }) => {
                       {cItem.title} (x{cItem.qun})
                     </p>
                     <p className="w-1/2 border-[1px] border-[#F0F0F0] py-4 px-5 font-dm font-normal text-[16px] text-secondary">
-                      {(cItem.price -
-                        (cItem.price * cItem.discountPercentage) / 100) *
-                        cItem.qun}{" "}
+                      {Math.round(
+                        (cItem.price -
+                          (cItem.price * cItem.discountPercentage) / 100) *
+                          cItem.qun
+                      )}
                       $
                     </p>
                   </Flex>
