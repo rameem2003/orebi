@@ -35,9 +35,7 @@ const ItemLIst = ({ item }) => {
               {item ? item.description : "fvwierwer"}
             </h2>
 
-            <Flex className={`gap-1`}>
-              <StarRating rating={item.rating} />
-            </Flex>
+            <StarRating rating={item.rating} />
           </div>
         </Flex>
 

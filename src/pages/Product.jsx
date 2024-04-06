@@ -58,9 +58,7 @@ const Product = ({ title }) => {
           </h1>
 
           <Flex className={`items-center gap-[25px] mt-[18px]`}>
-            <Flex className={`gap-1`}>
-              <StarRating rating={targetProduct?.rating} />
-            </Flex>
+            <StarRating rating={targetProduct?.rating} />
 
             <p>1 Review</p>
           </Flex>
