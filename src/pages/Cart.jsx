@@ -181,7 +181,7 @@ const Cart = ({ title }) => {
           {/* sise, coupon section end */}
 
           {/* totals start */}
-          <div className="mt-[54px]">
+          <div className="mt-[54px] mb-[140px]">
             <h4 className=" font-dm font-bold text-[20px] text-primary text-right">
               Cart totals
             </h4>

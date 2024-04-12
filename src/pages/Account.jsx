@@ -12,14 +12,14 @@ const Account = ({ title }) => {
       <Container>
         <Breadcrums title={title} />
 
-        <div className=" mt-[127px]">
-          <Flex>
-            <div className="w-2/12">
-              <List>
+        <div className=" mt-8 lg:mt-[127px]">
+          <Flex className={`items-start flex-col lg:flex-row`}>
+            <div className=" w-full lg:w-2/12">
+              <List className={`flex flex-wrap gap-3 lg:block`}>
                 <ListItem>
                   <button
                     onClick={() => setToggleState(1)}
-                    className={` block w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
+                    className={` block w-full lg:w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
                       toggleState == 1 ? "font-bold" : "font-normal"
                     } text-[16px] leading-[30px] text-secondary pb-[19px]`}
                   >
@@ -29,7 +29,7 @@ const Account = ({ title }) => {
                 <ListItem>
                   <button
                     onClick={() => setToggleState(2)}
-                    className={` block w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
+                    className={` block w-full lg:w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
                       toggleState == 2 ? "font-bold" : "font-normal"
                     } text-[16px] leading-[30px] text-secondary pb-[19px]`}
                   >
@@ -39,7 +39,7 @@ const Account = ({ title }) => {
                 <ListItem>
                   <button
                     onClick={() => setToggleState(3)}
-                    className={` block w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
+                    className={` block w-full lg:w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
                       toggleState == 3 ? "font-bold" : "font-normal"
                     } text-[16px] leading-[30px] text-secondary pb-[19px]`}
                   >
@@ -49,7 +49,7 @@ const Account = ({ title }) => {
                 <ListItem>
                   <button
                     onClick={() => setToggleState(4)}
-                    className={` block w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
+                    className={` block w-full lg:w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
                       toggleState == 4 ? "font-bold" : "font-normal"
                     } text-[16px] leading-[30px] text-secondary pb-[19px]`}
                   >
@@ -59,7 +59,7 @@ const Account = ({ title }) => {
                 <ListItem>
                   <button
                     onClick={() => setToggleState(5)}
-                    className={` block w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
+                    className={` block w-full lg:w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm ${
                       toggleState == 5 ? "font-bold" : "font-normal"
                     } text-[16px] leading-[30px] text-secondary pb-[19px]`}
                   >
@@ -68,14 +68,14 @@ const Account = ({ title }) => {
                 </ListItem>
                 <ListItem>
                   <button
-                    className={` block w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm font-normal text-[16px] leading-[30px] text-secondary pb-[19px]`}
+                    className={` block w-full lg:w-[233px] text-left border-b-[1px] border-[#f0f0f0] mb-5 font-dm font-normal text-[16px] leading-[30px] text-secondary pb-[19px]`}
                   >
                     Logout
                   </button>
                 </ListItem>
               </List>
             </div>
-            <div className="w-10/12">
+            <div className=" w-full lg:w-10/12">
               <div className={toggleState == 1 ? "block" : "hidden"}>
                 <h4 className=" font-dm font-normal text-[16px] leading-[30px] text-secondary">
                   Hello <span className=" text-primary">admin</span> (not{" "}

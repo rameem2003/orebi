@@ -13,7 +13,7 @@ const About = ({ title }) => {
         <Breadcrums title={title} />
 
         <Flex
-          className={`items-center justify-center flex-col lg:flex-row gap-10 mt-[130px]`}
+          className={`items-center justify-center flex-col lg:flex-row gap-10 mt-8 lg:mt-[130px]`}
         >
           <div className="w-full lg:w-1/2">
             <Imege className={`w-full lg:w-auto `} src={about1} />

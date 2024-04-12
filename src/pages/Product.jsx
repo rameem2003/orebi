@@ -44,7 +44,7 @@ const Product = ({ title }) => {
         <Flex className={`items-center justify-center flex-wrap gap-5`}>
           {targetProduct?.images.map((img, i) => (
             <Imege
-              className={`w-[180px] h-[180px] md:w-auto md:h-auto lg:w-[600px] lg:h-[600px] object-cover`}
+              className={`w-[120px] h-[120px] md:w-[250px] md:h-[250px] lg:w-[600px] lg:h-[600px] object-cover`}
               src={img}
               alt={targetProduct.title}
               key={i}
@@ -69,10 +69,15 @@ const Product = ({ title }) => {
             className={` items-center gap-[22px] mt-[21px] pb-6 border-b-[1px] border-solid`}
           >
             <del className=" font-dm font-normal text-[16px] text-secondary">
-              $88.00
+              ${targetProduct?.price}
             </del>
             <span className=" font-dm font-bold text-[20px] text-primary">
-              $ {targetProduct?.price}
+              ${" "}
+              {Math.round(
+                targetProduct?.price -
+                  (targetProduct?.price * targetProduct?.discountPercentage) /
+                    100
+              )}
             </span>
           </Flex>
 
@@ -141,14 +146,14 @@ const Product = ({ title }) => {
           </Flex>
 
           <Flex
-            className={`py-[30px] border-b-[1px] border-solid items-center gap-5`}
+            className={`py-[30px] border-b-[1px] border-solid justify-between lg:justify-start items-center gap-5`}
           >
-            <button className="py-4 px-10 border-[1px] border-primary font-dm font-bold text-[14px] text-primary">
+            <button className="py-4 px-6 lg:px-10 border-[1px] border-primary font-dm font-bold text-[14px] text-primary">
               Add to Wish List
             </button>
             <button
               onClick={addtoCart}
-              className="py-4 px-[64px] border-[1px] border-primary font-dm font-bold text-[14px] text-white bg-primary"
+              className="py-4 px-6 lg:px-[64px] border-[1px] border-primary font-dm font-bold text-[14px] text-white bg-primary"
             >
               Add to Cart
             </button>

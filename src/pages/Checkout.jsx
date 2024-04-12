@@ -8,7 +8,7 @@ const Checkout = ({ title }) => {
   const location = useLocation(); // get the data from the route
 
   const { cartProducts, price } = location.state;
-  // console.log(cartProducts);
+  console.log(cartProducts);
   return (
     <section>
       <Container>

@@ -8,7 +8,7 @@ const Contact = ({ title }) => {
       <Container>
         <Breadcrums title={title} />
 
-        <form action="" className="mt-[125px]">
+        <form action="" className=" mt-16 lg:mt-[125px]">
           <h3 className="font-dm font-bold text-[42px] text-primary mb-[42px]">
             Fill up a Form
           </h3>

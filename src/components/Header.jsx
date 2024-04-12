@@ -110,6 +110,12 @@ const Header = () => {
     dispatch(removeProduct(item.id));
   };
 
+  const goToCheckOut = () => {
+    // for navigate to checkout page and send data
+    // console.log("qwef");
+    navigate("/checkout", { state: { price: total, cartProducts } });
+  };
+
   return (
     <header className="py-6 bg-[#F5f5f5]">
       <Container>
@@ -305,12 +311,12 @@ const Header = () => {
                       >
                         View Cart
                       </Link>
-                      <Link
-                        to={`/checkout`}
+                      <button
+                        onClick={goToCheckOut}
                         className=" font-dm font-bold text-[14px] text-white bg-primary px-10 py-4 border-[1px] border-primary"
                       >
                         Checkout
-                      </Link>
+                      </button>
                     </Flex>
                   </div>
                   {/* cart & check navigation end */}

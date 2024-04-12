@@ -20,17 +20,21 @@ const Navigation = () => {
     });
   }, []);
   return (
-    <nav ref={navRef} className="py-[32px]">
+    <nav className="py-[32px]">
       <Container>
         <Flex className=" items-center justify-between">
           <Link to="/">
             <Imege src="/images/logo.png" alt="logo" />
           </Link>
-          <FaBarsStaggered
-            onClick={() => setDropDown(!dropDown)}
-            size={25}
-            className=" block lg:hidden"
-          />
+
+          <div ref={navRef}>
+            <FaBarsStaggered
+              onClick={() => setDropDown(!dropDown)}
+              size={25}
+              className=" block lg:hidden"
+            />
+          </div>
+
           <List
             className={` ${
               dropDown ? "absolute z-50 bg-white" : "hidden"
