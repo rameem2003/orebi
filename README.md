@@ -2,7 +2,7 @@
 
 A E-Commerce Website Frontend UI
 
-[![Software Version](https://img.shields.io/badge/Version-Public_BETA-red.svg)]()
+[![Software Version](https://img.shields.io/badge/Version-Public-red.svg)]()
 
 ## App Link
 
@@ -45,6 +45,10 @@ Home Screen
 - React Paginate
 
 - React Redux
+
+- Browser Local Storage API
+
+- Dummy JSON Product API
 
 ## Tech Stack
 
