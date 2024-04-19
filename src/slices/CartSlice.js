@@ -25,13 +25,14 @@ export const CartSlice = createSlice({
     },
 
     removeProduct: (state, action) => {
-      state.cart.splice(action.payload.id, 1);
+      let filteredData = state.cart.filter(
+        (item) => item.id !== action.payload
+      );
+      state.cart = filteredData;
       localStorage.setItem("orebiCart", JSON.stringify(state.cart));
     },
 
     updateQuntity: (state, action) => {
-      // console.log(action.payload);
-
       state.cart[action.payload.id].qun += action.payload.n;
 
       if (state.cart[action.payload.id].qun == 0) {
