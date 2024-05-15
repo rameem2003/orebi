@@ -9,6 +9,8 @@ import Imege from "../components/Imege";
 import Flex from "../components/Flex";
 import StarRating from "../components/StarRating";
 import { TiPlus, TiMinus } from "react-icons/ti";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Product = ({ title }) => {
   const dispatch = useDispatch(); // dispatch for store the product in cart redux
@@ -33,10 +35,22 @@ const Product = ({ title }) => {
 
   const addtoCart = () => {
     dispatch(cartReducer({ ...targetProduct, qun: 1 }));
+    toast.success(`${targetProduct.title} is added to cart`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      // transition: Bounce,
+    });
   };
 
   return (
     <section>
+      <ToastContainer />
       <Container>
         <Breadcrums title={title} />
 

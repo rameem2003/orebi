@@ -12,6 +12,8 @@ import Imege from "./Imege";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FaUser, FaSearch, FaShoppingCart, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Header = () => {
   const cartProducts = useSelector((state) => state.cartArray.cart); // data of cart products
   const dispatch = useDispatch(); // dispatch for cart redux
@@ -108,6 +110,17 @@ const Header = () => {
   const removeItemFromCart = (item) => {
     // for remove the item from redux
     dispatch(removeProduct(item.id));
+    toast.warn(`${item.title} is removed from the cart`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      // transition: Bounce,
+    });
   };
 
   const goToCheckOut = () => {
@@ -118,6 +131,7 @@ const Header = () => {
 
   return (
     <header className="py-6 bg-[#F5f5f5]">
+      <ToastContainer />
       <Container>
         <Flex className={`items-center justify-between gap-3 lg:gap-0`}>
           {/* catagory start */}

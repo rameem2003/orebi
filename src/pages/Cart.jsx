@@ -7,6 +7,8 @@ import Flex from "../components/Flex";
 import Imege from "../components/Imege";
 import Breadcrums from "../components/Breadcrums";
 import { FaTimes } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = ({ title }) => {
   const [total, setTotal] = useState(0); // for calculate & store the price
@@ -17,6 +19,17 @@ const Cart = ({ title }) => {
   const removeItemFromCart = (item) => {
     // for remove the item from redux
     dispatch(removeProduct(item.id));
+    toast.warn(`${item.title} is removed from the cart`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      // transition: Bounce,
+    });
   };
 
   const quantity = (index, n) => {
@@ -52,6 +65,7 @@ const Cart = ({ title }) => {
 
   return (
     <section>
+      <ToastContainer />
       <Container>
         <Breadcrums title={title} />
 
