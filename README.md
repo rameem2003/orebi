@@ -27,6 +27,7 @@ I'm a passionate front-end developer from Bangladesh. Complete Diploma Engineeri
 ## App Interface
 
 Orebi Web UI
+![Logo](./public/ss.png)
 
 Home Screen
 
